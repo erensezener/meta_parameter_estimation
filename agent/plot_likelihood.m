@@ -1,7 +1,7 @@
-len = 100;
+len = 50;
 errors = zeros(len,len);
-slice_a = linspace(0.001,1,len);
-slice_b = linspace(1,6,len);
+slice_a = linspace(0.01,0.1,len);
+slice_b = linspace(0.1,0.8,len);
 
 i = 0; 
 for a=slice_a

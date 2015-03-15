@@ -1,13 +1,13 @@
 %For 2-armed bandit
 clear;
 
-action1_reward = [0.7, 5; 0.3 0];
+action1_reward = [0.9, 5; 0.1 0];
 action2_reward = [0.5, 2; 0.5 0];
 rewards = {action1_reward, action2_reward};
 
 % gamma = 0.9;
-alpha = 0.2;
-beta = 2;
+alpha = 0.1;
+beta = 1;
 Q = [0, 0];
 
 number_of_iterations = 1000;
