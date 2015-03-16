@@ -5,9 +5,9 @@ action1_reward = [0.3, 1; 0.7 0];
 action2_reward = [0.6, 0.7; 0.4 0];
 rewards = {action1_reward, action2_reward};
 
-gamma = 0.80;
+gamma = 0.90;
 alpha = 0.05;
-beta = 0.2;
+beta = 0.1;
 Q = [3.5, 3.5, 3, 4]; %state x action
 state = 2;
 next_state = -1;
