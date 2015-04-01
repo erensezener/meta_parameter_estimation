@@ -1,6 +1,5 @@
-function [ alpha, beta, gamma ] = get_mcmc_cumulative_likelihood_two_state(as, rs, ss)
-%GET_MCMC_CUMULATIVE_LIKELIHOOD Summary of this function goes here
-%   Detailed explanation goes here
+function [ alpha, beta, gamma ] = get_metaparameters_for_two_state(as, rs, ss)
+%Does MCMC simulation to find the most likely metaparameters
 
 gamma_range = [0.5, 0.99];
 alpha_range = [0.001, 0.99];
