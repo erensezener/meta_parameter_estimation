@@ -1,4 +1,4 @@
-function [ alpha, beta ] = get_mcmc_cumulative_likelihood(as, rs)
+function [ alpha, beta ] = get_mcmc_cumulative_likelihood_two_states(as, rs)
 %GET_MCMC_CUMULATIVE_LIKELIHOOD Summary of this function goes here
 %   Detailed explanation goes here
 

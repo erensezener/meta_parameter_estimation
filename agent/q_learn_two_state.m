@@ -1,19 +1,31 @@
-%For 2-armed bandit
+%This is the code of a Q-learning agent.
+%The environment here is composed of two states.
+%The agent has two actions: go left OR go right
+% State transition rules are give below
+% in (current_state, current_action -> next_state, reward) format
+% state1, action1 -> state1, sample from reward_pmf_no1 
+% state1, action2 -> state2, 0
+% state2, action1 -> state1, 0
+% state2, action2 -> state1, sample from reward_pmf_no2 
+
 clear;
 
-action1_reward = [0.3, 9; 0.7 0];
-action2_reward = [0.6, 6; 0.4 0];
-rewards = {action1_reward, action2_reward};
+%% Rewards
+reward_pmf_no1 = [0.3, 9; 0.7 0]; % [(probability, reward)]
+reward_pmf_no2 = [0.6, 6; 0.4 0]; % [(probability, reward)]
+rewards = {reward_pmf_no1, reward_pmf_no2};
 
+%% Agent parameters
 gamma = 0.90;
 alpha = 0.15;
 beta = 0.12;
 Q = [0, 0, 0, 0]; %state x action
-state = 2;
+state = 2; %initial state
 next_state = -1;
 
 number_of_iterations = 4000;
 
+%% Initializations
 Qs = zeros(number_of_iterations + 1, size(Q,2));
 Qs(1,:) = Q;
 as = zeros(number_of_iterations, 1);
@@ -21,8 +33,7 @@ rs = zeros(number_of_iterations, 1);
 ss = zeros(number_of_iterations+1, 1);
 ss(1,1) = state;
 
-
-
+%% The loop
 for i = 1:number_of_iterations
     Q = reshape(Q, 2, 2)';
     unnormalized_p_as = [exp(beta * Q(state,1)), exp(beta * Q(state,2))];
@@ -44,7 +55,6 @@ for i = 1:number_of_iterations
     
     reward = 0;
 
-    state;
     %state change
     if state == 1 && action == 1
         next_state = 1;
@@ -89,11 +99,6 @@ for i = 1:number_of_iterations
     Q = reshape(Q', 1, 4);
     Qs(i + 1,:) = Q;
     ss(i+1,1) = state;
-
-    
 end
 
-% %returns Qs, as, ys
-% plot(Qs(:,1:2),'b')
-% plot(Qs(:,3:4), 'r')
 plot(Qs)
