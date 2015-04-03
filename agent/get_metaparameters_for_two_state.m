@@ -1,12 +1,12 @@
-function [ alpha, beta, gamma ] = get_metaparameters_for_two_state(as, rs, ss)
+function [ alpha, beta, gamma ] = get_metaparameters_for_two_state(as, rs, ss, num_states, num_actions)
 %Does MCMC simulation to find the most likely metaparameters
 
-gamma_range = [0.5, 0.99];
+gamma_range = [0.3, 0.99];
 alpha_range = [0.001, 0.99];
 beta_range = [0.001, 5];
 step_size = 0.05;
-initial_Q = [0, 0; 0, 0];
-number_of_iterations = 5000;
+initial_Q = zeros(num_states,num_actions); %rows are states
+number_of_iterations = 10000;
 
 % get range lengths
 alpha_range_length = (alpha_range(2) - alpha_range(1));
@@ -25,6 +25,7 @@ likelihood = get_action_likelihood_two_states(as, rs, ss, alpha, beta, gamma, in
 
 for i = 1:number_of_iterations
     
+    %% Sampling
     alpha_prime = 2 * alpha_range_length * step_size * (rand(1) - 0.5) + alpha;
     beta_prime = 2 * beta_range_length * step_size * (rand(1) - 0.5) + beta;
     gamma_prime = 2 * gamma_range_length * step_size * (rand(1) - 0.5) + gamma;
@@ -37,7 +38,8 @@ for i = 1:number_of_iterations
         gamma_prime = 2 * gamma_range_length * step_size * (rand(1) - 0.5) + gamma;
         primes = [alpha_prime, beta_prime, gamma_prime];
     end
-        
+    
+    %% Accept or Reject
     likelihood_prime = get_action_likelihood_two_states(as, rs, ss, primes(1), primes(2),primes(3), initial_Q);
     if likelihood_prime < likelihood || rand(1) < exp(likelihood - likelihood_prime)
         alpha = alpha_prime;
