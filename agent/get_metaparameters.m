@@ -1,4 +1,4 @@
-function [ alpha, beta, gamma ] = get_metaparameters_for_two_state(as, rs, ss, num_states, num_actions)
+function [ alpha, beta, gamma ] = get_metaparameters(as, rs, ss, num_states, num_actions)
 %Does MCMC simulation to find the most likely metaparameters
 
 gamma_range = [0.3, 0.99];
@@ -21,7 +21,7 @@ upper_bounds = [alpha_range(2), beta_range(2), gamma_range(2)];
 alpha = alpha_range_length * rand(1) + alpha_range(1);
 beta = beta_range_length * rand(1) + beta_range(1);
 gamma = gamma_range_length * rand(1) + gamma_range(1);
-likelihood = get_action_likelihood_two_states(as, rs, ss, alpha, beta, gamma, initial_Q);
+likelihood = get_likelihood(as, rs, ss, alpha, beta, gamma, initial_Q);
 
 for i = 1:number_of_iterations
     
@@ -40,7 +40,7 @@ for i = 1:number_of_iterations
     end
     
     %% Accept or Reject
-    likelihood_prime = get_action_likelihood_two_states(as, rs, ss, primes(1), primes(2),primes(3), initial_Q);
+    likelihood_prime = get_likelihood(as, rs, ss, primes(1), primes(2),primes(3), initial_Q);
     if likelihood_prime < likelihood || rand(1) < exp(likelihood - likelihood_prime)
         alpha = alpha_prime;
         beta = beta_prime;

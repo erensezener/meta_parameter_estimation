@@ -1,5 +1,5 @@
-function [ negative_log_likelihood ] = get_action_likelihood_two_states(as, rs, ss, alpha, beta, gamma, initial_Q)
-
+function [ negative_log_likelihood ] = get_likelihood(as, rs, ss, alpha, beta, gamma, initial_Q)
+% Calculates the likelihood of a trajectory given the metaparameters
 
 Q = initial_Q;
 num_actions = size(Q,2);
