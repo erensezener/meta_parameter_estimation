@@ -5,7 +5,7 @@ Q = initial_Q;
 num_actions = size(Q,2);
 negative_log_likelihood = 0;
 
-for i = 1:size(as,1)
+for i = 1:size(as,1)-1
 
     %% Find pmf for actions
     unnormalized_p_as = zeros(1,num_actions);
