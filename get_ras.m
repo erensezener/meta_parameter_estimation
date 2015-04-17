@@ -1,6 +1,7 @@
 function [ reduced_states, actions, rewards ] = get_ras( data )
 %GET_RAS Given data from Mohammad's data, finds rs, as, ss
 
+data = remove_zeros_from_bottom(data(:,1:5));
 positions = data(:,1:4);
 voltages = data(:,5);
 number_of_states = 9;

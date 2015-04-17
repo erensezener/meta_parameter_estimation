@@ -1,5 +1,5 @@
 clear;
-load('./data/Negin_SimMain_16_Dec_2014_14_2.mat');
+load('./data/Awais_SimMain_15_Dec_2014_17_19');
 data = ResParsOfExp.Exp.DATA_cartpole;
 
 [ states, actions, rewards ] = get_ras( data );
@@ -8,4 +8,4 @@ number_of_actions = 4;
 [ alpha, beta, gamma ] = get_metaparameters(actions', rewards, states, ...
                                                 number_of_states, number_of_actions);
 
-save('test_run.mat');
+save('./results/Awais_SimMain_15_Dec_2014_17_19');
