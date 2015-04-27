@@ -1,4 +1,4 @@
-function [ rewards ] = get_rewards( emg_values, state_values, weight)
+function [ rewards ] = get_rewards( emg_values, state_values, weight )
 
 len = length(emg_values);
 cost_function = @(emg_value, delta_CoM) ...

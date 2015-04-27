@@ -1,4 +1,4 @@
-function [] = runner_parallel_inner( sub_no, series_no )
+function [alpha, beta, gamma, weight] = runner_parallel_inner( sub_no, series_no )
 %RUNNER_PARALLEL_INNER Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -8,7 +8,6 @@ load(strcat('./whole_body_data/','s', num2str(sub_no), 'mvc.mat'));
 data = selection(sub_no, series_no, 0);
 %% temp hack
 data = data(1:1000, :);
-weight = 1;
 
 %%
 
@@ -24,14 +23,14 @@ clear data;
 number_of_states = 9; %per state dimension
 number_of_actions = 5; %per state dimension
 
-[ states, actions, rewards ] = get_ras( state_data, action_data, ...
-                                        number_of_states, number_of_actions, weight);
+[ states, actions] = get_as( state_data, action_data, ...
+                                        number_of_states, number_of_actions);
 
 number_of_estimated_states = size(unique(states),1);
 number_of_estimated_actions = size(unique(actions),1);
                                     
-[ alpha, beta, gamma ] = get_metaparameters(actions', rewards, states, ...
+[ alpha, beta, gamma, weight ] = get_metaparameters_and_rewards(actions', states, state_data, action_data, ...
     number_of_estimated_states, number_of_estimated_actions);
-save(strcat('./results/run3/', filename_of_data));
+% save(strcat('./results/whole_body/', filename_of_data));
 end
 
