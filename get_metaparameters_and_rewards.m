@@ -7,7 +7,7 @@ beta_range = [0.001, 5];
 weight_range = [0.01, 100];
 step_size = 0.05;
 initial_Q = zeros(num_states,num_actions); %rows are states
-number_of_iterations = 50000;
+number_of_iterations = 10000;
 
 
 %% get range lengths
