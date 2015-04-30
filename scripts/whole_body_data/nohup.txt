@@ -1,0 +1,1 @@
+nohup \matlab -nodisplay -nosplash < runner_script_parallel.m >& driver.log &

@@ -6,15 +6,17 @@ load(strcat('./whole_body_data/','sub', num2str(sub_no), '.mat'));
 load(strcat('./whole_body_data/','s', num2str(sub_no), 'mvc.mat'));
 
 data = selection(sub_no, series_no, 0);
-data = smooth(data,11);
-data = downsample(data,10);
 
-CoP = data(:,4);
+CoP = downsample(smooth(data(:,4),11), 10);
 delta_CoP = diff(CoP); %this is 1 row shorter than CoM data
-F = data(:,3);
+F = downsample(smooth(data(:,3),11), 10);
 state_data = [CoP(1:end-1,:), delta_CoP, F(1:end-1,:)];
-action_data = data(1:end-1,[end-1, end]); %emg data in this case
+action_data = data(1:end,[end-1, end]); %emg data in this case
 action_data = [action_data(:,1)/MVC_noga(6), action_data(:,2)/MVC_noga(7)];
+action_data = [downsample(smooth(action_data(:,1)/MVC_noga(6),11), 10), ...
+    downsample(smooth(action_data(:,2)/MVC_noga(7),11), 10)];
+action_data = action_data(1:end-1,:);
+
 clear data;
 
 % number_of_states = 8*9^3 + 8 * 9^2 + 8* 9^1 + 8 * 9^0; %a temporary hack
