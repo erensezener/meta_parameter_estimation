@@ -3,11 +3,11 @@ function [ alpha, beta, gamma, weight ] = get_metaparameters_and_rewards(as, ss,
 
 gamma_range = [0.3, 0.99];
 alpha_range = [0.001, 0.99];
-beta_range = [0.001, 5];
+beta_range = [0.001, 10];
 weight_range = [0.01, 100];
 step_size = 0.05;
 initial_Q = zeros(num_states,num_actions); %rows are states
-number_of_iterations = 10000;
+number_of_iterations = 50000;
 
 
 %% get range lengths
