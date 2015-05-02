@@ -5,16 +5,19 @@ function [alpha, beta, gamma, weight] = runner_parallel_inner( sub_no, series_no
 load(strcat('./whole_body_data/','sub', num2str(sub_no), '.mat'));
 load(strcat('./whole_body_data/','s', num2str(sub_no), 'mvc.mat'));
 
+downsampling_rate = 100;
+smoothing_rate = 101;
+
 data = selection(sub_no, series_no, 0);
 
-CoP = downsample(smooth(data(:,4),101), 100);
+CoP = downsample(smooth(data(:,6),smoothing_rate), downsampling_rate);
 delta_CoP = diff(CoP); %this is 1 row shorter than CoM data
-F = downsample(smooth(data(:,3),101), 100);
+F = downsample(smooth(data(:,3),smoothing_rate), downsampling_rate);
 state_data = [CoP(1:end-1,:), delta_CoP, F(1:end-1,:)];
 action_data = data(1:end,[end-1, end]); %emg data in this case
 action_data = [action_data(:,1)/MVC_noga(6), action_data(:,2)/MVC_noga(7)];
-action_data = [downsample(smooth(action_data(:,1)/MVC_noga(6),101), 100), ...
-    downsample(smooth(action_data(:,2)/MVC_noga(7),101), 100)];
+action_data = [downsample(smooth(action_data(:,1)/MVC_noga(6),smoothing_rate), downsampling_rate), ...
+    downsample(smooth(action_data(:,2)/MVC_noga(7),smoothing_rate), downsampling_rate)];
 action_data = action_data(1:end-1,:);
 
 clear data;
