@@ -3,10 +3,10 @@ function [ alpha, beta, gamma ] = get_metaparameters(as, rs, ss, num_states, num
 
 gamma_range = [0.3, 0.99];
 alpha_range = [0.001, 0.99];
-beta_range = [0.001, 5];
+beta_range = [0.001, 20];
 step_size = 0.05;
 initial_Q = zeros(num_states,num_actions); %rows are states
-number_of_iterations = 50000;
+number_of_iterations = 10000;
 
 % get range lengths
 alpha_range_length = (alpha_range(2) - alpha_range(1));
