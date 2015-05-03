@@ -16,7 +16,7 @@ results = cell(number_of_subjects, number_of_trials);
 sub_no=2;
 
 % parfor sub_no = 2:number_of_subjects
-parfor series_no = 1:8
+for series_no = 1:8
     try
         [alpha, beta, gamma] = runner_parallel_inner(sub_no, 1);
         results{sub_no, series_no} = [alpha, beta, gamma];
