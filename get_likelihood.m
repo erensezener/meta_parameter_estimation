@@ -4,6 +4,8 @@ function [ negative_log_likelihood ] = get_likelihood(as, rs, ss, alpha, beta, g
 Q = initial_Q;
 num_actions = size(Q,2);
 negative_log_likelihood = 0;
+ss = ss + 1;
+as = as + 1;
 
 for i = 1:size(as,1)-1
 
