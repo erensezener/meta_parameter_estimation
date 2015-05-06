@@ -12,7 +12,7 @@ for i = 1:12
     averages(i,:) = total / 15;
 end
 
-averages = [averages([1:5],:); averages([7:12],:)];
+% averages = [averages([1:5],:); averages([7:12],:)];
 scatter3(averages(:,1), averages(:,2), averages(:,3));
 xlabel('alpha'); ylabel('beta'); zlabel('gamma');
 

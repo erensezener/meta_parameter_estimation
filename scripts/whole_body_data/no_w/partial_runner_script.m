@@ -15,15 +15,15 @@ results = cell(number_of_subjects, number_of_trials);
 
 
 parfor sub_no = 2:number_of_subjects
-  for series_no = 1:number_of_trials
-    try
-        [alpha, beta, gamma] = runner_parallel_inner(sub_no, series_no);
-        results{sub_no, series_no} = [alpha, beta, gamma];
-    catch
-        display(strcat('e',num2str(sub_no), ',', num2str(series_no)))
-        results{sub_no, series_no} = [-1, -1, -1];
+    for series_no = 1:number_of_trials
+        try
+            [alpha, beta, gamma] = runner_parallel_inner(sub_no, series_no);
+            results{sub_no, series_no} = [alpha, beta, gamma];
+        catch
+            display(strcat('e',num2str(sub_no), ',', num2str(series_no)))
+            results{sub_no, series_no} = [-1, -1, -1];
+        end
     end
-end
 end
 
 

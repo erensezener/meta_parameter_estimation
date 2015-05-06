@@ -13,7 +13,8 @@ for j = 1:15
 end
 
 % averages = [averages([1:5],:); averages([7:12],:)];
-scatter3(averages(:,1), averages(:,2), averages(:,3));
-xlabel('alpha'); ylabel('beta'); zlabel('gamma');
+% scatter3(averages(:,1), averages(:,2), averages(:,3));
+% xlabel('alpha'); ylabel('beta'); zlabel('gamma');
+plot(averages)
 
 end
