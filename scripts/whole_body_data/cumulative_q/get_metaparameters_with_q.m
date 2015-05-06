@@ -5,7 +5,7 @@ gamma_range = [0.3, 0.99];
 alpha_range = [0.001, 0.99];
 beta_range = [0.001, 20];
 step_size = 0.05;
-number_of_iterations = 2000;
+number_of_iterations = 1000;
 
 % get range lengths
 alpha_range_length = (alpha_range(2) - alpha_range(1));
@@ -30,12 +30,17 @@ for i = 1:number_of_iterations
     gamma_prime = 2 * gamma_range_length * step_size * (rand(1) - 0.5) + gamma;
     primes = [alpha_prime, beta_prime, gamma_prime];
     
+    loop_count = 0;
     % resample if alpha, beta, or gamma fall out of range
     while nnz(primes > lower_bounds) < 3 || nnz(primes < upper_bounds) < 3
         alpha_prime = 2 * alpha_range_length * step_size * (rand(1) - 0.5) + alpha;
         beta_prime = 2 * beta_range_length * step_size * (rand(1) - 0.5) + beta;
         gamma_prime = 2 * gamma_range_length * step_size * (rand(1) - 0.5) + gamma;
         primes = [alpha_prime, beta_prime, gamma_prime];
+	if loop_count > 100
+	   display('oops');
+	  return
+	end
     end
     
     %% Accept or Reject
