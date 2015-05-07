@@ -6,7 +6,7 @@ load(strcat('./whole_body_data/','s', num2str(sub_no), 'mvc.mat'));
 
 number_of_trials = 15;
 
-downsampling_rate = 10;
+downsampling_rate = 100;
 smoothing_rate = 101;
 
 all_state_data = [];

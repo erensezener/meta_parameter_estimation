@@ -12,10 +12,15 @@ number_of_trials = 15;
 
 results = cell(number_of_subjects, number_of_trials);
 
-parfor (sub_no = 2:number_of_subjects, 5)
-    temp = get_metaparameters_of_subject(sub_no);
+%for sub_no = 2:number_of_subjects
+parfor (sub_no = 2:number_of_subjects, 6)
     display(num2str(sub_no));
-    results(sub_no,:) = temp';
+    try
+      results(sub_no,:) = get_metaparameters_of_subject(sub_no)';
+    catch
+      results(sub_no,:) = cell(1,number_of_trials);
+      display('oops in script');
+    end
 end
 
-save('./results/whole_body/q_transfer_2.mat');
+save('./results/whole_body/q_transer_with_try_catch.mat');

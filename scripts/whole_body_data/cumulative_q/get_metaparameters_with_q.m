@@ -5,7 +5,7 @@ gamma_range = [0.3, 0.99];
 alpha_range = [0.001, 0.99];
 beta_range = [0.001, 20];
 step_size = 0.05;
-number_of_iterations = 1000;
+number_of_iterations = 2000;
 
 % get range lengths
 alpha_range_length = (alpha_range(2) - alpha_range(1));
@@ -37,7 +37,7 @@ for i = 1:number_of_iterations
         beta_prime = 2 * beta_range_length * step_size * (rand(1) - 0.5) + beta;
         gamma_prime = 2 * gamma_range_length * step_size * (rand(1) - 0.5) + gamma;
         primes = [alpha_prime, beta_prime, gamma_prime];
-	if loop_count > 100
+	if loop_count > 300
 	   display('oops');
 	  return
 	end
