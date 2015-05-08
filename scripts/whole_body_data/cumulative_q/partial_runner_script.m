@@ -7,7 +7,7 @@ cd ..
 addpath(genpath('whole_body_data'));
 addpath(genpath('scripts/whole_body_data/cumulative_q'));
 
-number_of_subjects = 13;
+number_of_subjects = 7;
 number_of_trials = 15;
 
 results = cell(number_of_subjects, number_of_trials);
@@ -23,4 +23,4 @@ parfor (sub_no = 2:number_of_subjects, 6)
     end
 end
 
-save('./results/whole_body/q_transer_with_try_catch.mat');
+save('./results/whole_body/subsample_by_4.mat');
