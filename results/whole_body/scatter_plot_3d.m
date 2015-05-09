@@ -2,9 +2,9 @@ function [] = scatter_plot_3d( results )
 %SCATTER_PLOT_3D Summary of this function goes here
 %   Detailed explanation goes here
 
-averages = zeros(12,3);
+averages = zeros(6,3);
 
-for i = 1:12
+for i = 1:6
     total = zeros(1,3);
     for j = 1:15
         total = total + results{i+1, j};

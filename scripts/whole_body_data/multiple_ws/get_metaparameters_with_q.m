@@ -1,11 +1,11 @@
 function [ alpha, beta, gamma, Q ] = get_metaparameters_with_q(as, rs, ss, initial_Q)
 %Does MCMC simulation to find the most likely metaparameters
 
-gamma_range = [0.1, 0.99];
-alpha_range = [0.1, 0.99];
-beta_range = [-3, 3];
-step_size = 0.005;
-number_of_iterations = 20000;
+gamma_range = [0.3, 0.99];
+alpha_range = [0.001, 0.99];
+beta_range = [0.001, 20];
+step_size = 0.05;
+number_of_iterations = 2000;
 
 % get range lengths
 alpha_range_length = (alpha_range(2) - alpha_range(1));
@@ -20,7 +20,7 @@ upper_bounds = [alpha_range(2), beta_range(2), gamma_range(2)];
 alpha = alpha_range_length * rand(1) + alpha_range(1);
 beta = beta_range_length * rand(1) + beta_range(1);
 gamma = gamma_range_length * rand(1) + gamma_range(1);
-[likelihood, Q] = get_likelihood_and_q(as, rs, ss, alpha, exp(beta), gamma, initial_Q);
+[likelihood, Q] = get_likelihood_and_q(as, rs, ss, alpha, beta, gamma, initial_Q);
 
 for i = 1:number_of_iterations
     
@@ -44,7 +44,7 @@ for i = 1:number_of_iterations
     end
     
     %% Accept or Reject
-    [likelihood_prime, Q_prime] = get_likelihood_and_q(as, rs, ss, primes(1), exp(primes(2)),primes(3), initial_Q);
+    [likelihood_prime, Q_prime] = get_likelihood_and_q(as, rs, ss, primes(1), primes(2),primes(3), initial_Q);
     if likelihood_prime < likelihood || rand(1) < exp(likelihood - likelihood_prime)
         alpha = alpha_prime;
         beta = beta_prime;
