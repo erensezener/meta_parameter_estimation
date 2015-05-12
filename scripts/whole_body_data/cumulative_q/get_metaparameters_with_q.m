@@ -4,8 +4,8 @@ function [ alpha, beta, gamma, Q ] = get_metaparameters_with_q(as, rs, ss, initi
 gamma_range = [0.1, 0.99];
 alpha_range = [0.1, 0.99];
 beta_range = [-3, 3];
-step_size = 0.005;
-number_of_iterations = 20000;
+step_size = 0.05;
+number_of_iterations = 5000;
 
 % get range lengths
 alpha_range_length = (alpha_range(2) - alpha_range(1));
