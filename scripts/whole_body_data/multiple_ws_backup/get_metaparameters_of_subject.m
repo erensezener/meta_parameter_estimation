@@ -4,7 +4,7 @@ function [ results ] = get_metaparameters_of_subject( sub_no )
 
 load(strcat('./whole_body_data/','s', num2str(sub_no), 'mvc.mat'));
 
-number_of_trials = 2;
+number_of_trials = 15;
 
 downsampling_rate = 50;
 smoothing_rate = 51;
@@ -37,11 +37,7 @@ number_of_actions = 5; %per state dimension
 [ all_discrete_states, all_discrete_actions] = get_as( all_state_data, all_action_data, ...
     number_of_states, number_of_actions);
 
-% all_rewards = get_rewards(all_action_data, all_state_data, 1);
-max_states = max(all_state_data);
-min_states = min(all_state_data);
-max_actions = max(all_action_data);
-min_actions = min(all_action_data);
+all_rewards = get_rewards(all_action_data, all_state_data, 1);
 
 results = cell(number_of_trials,1);
 qs = cell(number_of_trials,1);
@@ -49,15 +45,14 @@ for i = 1:number_of_trials
     if i == 1
         states = all_discrete_states(1:lengths(i),:);
         actions = all_discrete_actions(1:lengths(i),:);
-        state_data = all_state_data(1:lengths(i),:);
-        action_data = all_action_data(1:lengths(i),:);
+        rewards = all_rewards(1:lengths(i),:);
         
         number_of_estimated_states = max(all_discrete_states) + 1;
         number_of_estimated_actions = max(all_discrete_actions) + 1;
         q_prev = zeros(number_of_estimated_states, number_of_estimated_actions);
         
-        [ alpha, beta, gamma, q_final, weights] = get_metaparameters_with_q(actions, states, q_prev, state_data, ...
-            action_data, max_states, min_states, max_actions, min_actions);
+        [ alpha, beta, gamma, q_final ] = get_metaparameters_with_q(actions, rewards, ...
+            states, q_prev);
         
     else
         begin_index = sum(lengths(1:i-1)) + 1;
@@ -65,15 +60,14 @@ for i = 1:number_of_trials
         
         states = all_discrete_states(begin_index:end_index,:);
         actions = all_discrete_actions(begin_index:end_index,:);
-        state_data = all_state_data(begin_index:end_index,:);
-        action_data = all_action_data(begin_index:end_index,:);
+        rewards = all_rewards(begin_index:end_index,:);
         
-        [ alpha, beta, gamma, q_final, weights] = get_metaparameters_with_q(actions, states, q_prev, state_data, ...
-            action_data, max_states, min_states, max_actions, min_actions);
+        [ alpha, beta, gamma, q_final ] = get_metaparameters_with_q(actions, rewards, ...
+            states, q_prev);
 
     end
     
-    results{i,1} =  [alpha, beta, gamma, weights];
+    results{i,1} =  [ alpha, beta, gamma ];
     q_prev = q_final;
     qs{i,1} = q_prev;
 end

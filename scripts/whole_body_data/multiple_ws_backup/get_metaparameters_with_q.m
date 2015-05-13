@@ -4,6 +4,8 @@ function [ alpha, beta, gamma, Q ] = get_metaparameters_with_q(as, rs, ss, initi
 gamma_range = [0.1, 0.99];
 alpha_range = [0.1, 0.99];
 beta_range = [-3, 3];
+weight_range = [-3, 3];
+
 step_size = 0.05;
 number_of_iterations = 20000;
 
@@ -11,15 +13,20 @@ number_of_iterations = 20000;
 alpha_range_length = (alpha_range(2) - alpha_range(1));
 beta_range_length = (beta_range(2) - beta_range(1));
 gamma_range_length = (gamma_range(2) - gamma_range(1));
+weight_range_length = (weight_range(2) - weight_range(1));
+
 
 % get lower and upper bounds
 lower_bounds = [alpha_range(1), beta_range(1), gamma_range(1)];
 upper_bounds = [alpha_range(2), beta_range(2), gamma_range(2)];
+lower_bounds = [alpha_range(1), beta_range(1), gamma_range(1), weight_range(1)];
+upper_bounds = [alpha_range(2), beta_range(2), gamma_range(2), weight_range(2)];
 
 % get initial values
 alpha = alpha_range_length * rand(1) + alpha_range(1);
 beta = beta_range_length * rand(1) + beta_range(1);
 gamma = gamma_range_length * rand(1) + gamma_range(1);
+weight = weight_range_length * rand(1) + weight_range(1);
 [likelihood, Q] = get_likelihood_and_q(as, rs, ss, alpha, exp(beta), gamma, initial_Q);
 
 for i = 1:number_of_iterations
@@ -37,10 +44,10 @@ for i = 1:number_of_iterations
         beta_prime = 2 * beta_range_length * step_size * (rand(1) - 0.5) + beta;
         gamma_prime = 2 * gamma_range_length * step_size * (rand(1) - 0.5) + gamma;
         primes = [alpha_prime, beta_prime, gamma_prime];
-        if loop_count > 300
-            display('oops');
-            return
-        end
+	if loop_count > 300
+	   display('oops');
+	  return
+	end
     end
     
     %% Accept or Reject
