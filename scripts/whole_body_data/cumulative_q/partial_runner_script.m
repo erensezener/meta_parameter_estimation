@@ -24,6 +24,6 @@ parfor (sub_no = 2:number_of_subjects, 6)
     end
 end
 
-save('./results/whole_body/long_iter3.mat');
+save('./results/whole_body/long_iter_50x.mat');
 
 toc
