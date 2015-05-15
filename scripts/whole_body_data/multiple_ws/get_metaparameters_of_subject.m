@@ -4,7 +4,7 @@ function [ results ] = get_metaparameters_of_subject( sub_no )
 
 load(strcat('./whole_body_data/','s', num2str(sub_no), 'mvc.mat'));
 
-number_of_trials = 2;
+number_of_trials = 15;
 
 downsampling_rate = 50;
 smoothing_rate = 51;
