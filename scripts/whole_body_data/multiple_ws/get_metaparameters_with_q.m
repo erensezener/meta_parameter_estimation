@@ -7,7 +7,7 @@ alpha_range = [0.1, 0.99];
 beta_range = [-3, 7];
 weight_range = [-3, 3];
 step_size = 0.05;
-number_of_iterations = 10000;
+number_of_iterations = 50000;
 
 % get range lengths
 alpha_range_length = (alpha_range(2) - alpha_range(1));

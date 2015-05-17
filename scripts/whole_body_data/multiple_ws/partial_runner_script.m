@@ -25,6 +25,6 @@ parfor (sub_no = 2:number_of_subjects, 6)
     end
 end
 
-save('./results/whole_body/multiple_ws_first_run.mat');
+save('./results/whole_body/multiple_ws_second_run.mat');
 
 toc
