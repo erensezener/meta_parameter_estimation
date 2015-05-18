@@ -16,10 +16,18 @@ lengths = zeros(number_of_trials,1);
 for i = 1:number_of_trials
     data = selection_lean(sub_no,i);
     
-    CoP = downsample(smooth(data(:,3),smoothing_rate), downsampling_rate);
-    delta_CoP = diff(CoP); %this is 1 row shorter than CoM data
+    CoM = data(:,3);
+    
+    %Clean outliers
+    temp_CoM = CoM(CoM < 5000);
+    CoM(CoM > 5000) = max(temp_CoM);
+    temp_CoM = CoM(CoM > -5000);
+    CoM(CoM < -5000) = min(temp_CoM);
+    
+    CoM = downsample(smooth(CoM,smoothing_rate), downsampling_rate);
+    delta_CoM = diff(CoM); %this is 1 row shorter than CoM data
     F = downsample(smooth(data(:,2),smoothing_rate), downsampling_rate);
-    state_data = [CoP(1:end-1,:), delta_CoP, F(1:end-1,:)];
+    state_data = [CoM(1:end-1,:), delta_CoM, F(1:end-1,:)];
     action_data = data(1:end,[end-1, end]); %emg data in this case
     action_data = [action_data(:,1)/MVC_noga(6), action_data(:,2)/MVC_noga(7)];
     action_data = [downsample(smooth(action_data(:,1)/MVC_noga(6),smoothing_rate), downsampling_rate), ...
@@ -77,7 +85,4 @@ for i = 1:number_of_trials
     q_prev = q_final;
     qs{i,1} = q_prev;
 end
-
-
 end
-
