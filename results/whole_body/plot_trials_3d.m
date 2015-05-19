@@ -12,7 +12,7 @@ end
 % scatter3(averages(:,1), averages(:,2), averages(:,3));
 % xlabel('alpha'); ylabel('beta'); zlabel('gamma');
 
-plot(averages(:,[4:6]));
+plot(averages);
 % figure;
 % plot(averages(:,[2]));
 
