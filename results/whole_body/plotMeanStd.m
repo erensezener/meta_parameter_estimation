@@ -18,7 +18,7 @@ if (rotated ==0),
     p = [[x;flipud(x)],[y+more;flipud(y-less)]];
     h=fill(p(:,1), p(:,2),rgb,'FaceAlpha',0.5); hold on;
     set(h,'edgecolor','none');
-    plot(x,y,'k-'); hold on;
+%     plot(x,y,'k-'); hold on;
 else
     p = [[x+more;flipud(x-less)],[y;flipud(y)]];
     h=fill(p(:,1), p(:,2),rgb,'FaceAlpha',0.5); hold on;
