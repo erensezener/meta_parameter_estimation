@@ -21,4 +21,3 @@ end
 % rewards = (rewards - min(rewards)) ./ (max(rewards) - min(rewards));
 rewards = 1.5 + rewards;
 end 
-
