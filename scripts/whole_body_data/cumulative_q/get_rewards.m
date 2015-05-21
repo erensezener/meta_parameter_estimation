@@ -18,6 +18,7 @@ for i = 1:len
     rewards(i) = cost_function(emg_values(i,:), delta_CoMs(i,:));
 end
 
-rewards = (rewards - min(rewards)) ./ (max(rewards) - min(rewards));
+% rewards = (rewards - min(rewards)) ./ (max(rewards) - min(rewards));
+rewards = 1.5 - rewards;
 end
 
