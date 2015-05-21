@@ -19,6 +19,6 @@ for i = 1:len
 end
 
 % rewards = (rewards - min(rewards)) ./ (max(rewards) - min(rewards));
-rewards = 1.5 - rewards;
+rewards = 1.5 + rewards;
 end
 
