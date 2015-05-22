@@ -4,10 +4,10 @@ function [ alpha, beta, gamma, Q, weights] = get_metaparameters_with_q(as, ss, i
 
 gamma_range = [0.1, 0.99];
 alpha_range = [0.1, 0.99];
-beta_range = [-3, 3];
+beta_range = [-3, 1.5];
 weight_range = [0.1, 0.99];
 step_size = 0.05;
-number_of_iterations = 8000;
+number_of_iterations = 3000;
 
 % get range lengths
 alpha_range_length = (alpha_range(2) - alpha_range(1));
