@@ -31,22 +31,39 @@ plotMeanStd([1:1:num_trials],means(:,1)',stdevs(:,1)',stdevs(:,1)',[0.7 0.7 0.9]
 % figure;
 plot(means(:,2),'r:');
 plotMeanStd([1:1:num_trials],means(:,2)',stdevs(:,2)',stdevs(:,2)',[0.9 0.7 0.7],0);
-legend('alpha mean', 'alpha SEM', 'gamma mean', 'gamma SEM');
+plot(means(:,3),'g--');
+plotMeanStd([1:1:num_trials],means(:,3)',stdevs(:,3)',stdevs(:,3)',[0.5, 0.9 0.5],0);
+legend('alpha mean', 'alpha SEM', 'gamma mean', 'gamma SEM', 'beta mean', 'beta SEM');
+xlim([1, 15])
 xlabel('Trial number')
 ylabel('Values')
 set(gca, 'LineWidth', 1.2)
 box on
 
 
-figure;
-hold on;
-plot(means(:,3),'b-');
-plotMeanStd([1:1:num_trials],means(:,3)',stdevs(:,3)',stdevs(:,3)',[0.7 0.7 0.9],0);
-legend('beta mean', 'beta SEM');
-xlabel('Trial number')
-ylabel('Values')
-set(gca, 'LineWidth', 1.2)
-box on
+% figure;
+% hold on;
+% plot(means(:,1),'b-');
+% plotMeanStd([1:1:num_trials],means(:,1)',stdevs(:,1)',stdevs(:,1)',[0.7 0.7 0.9],0);
+% % figure;
+% plot(means(:,2),'r:');
+% plotMeanStd([1:1:num_trials],means(:,2)',stdevs(:,2)',stdevs(:,2)',[0.9 0.7 0.7],0);
+% legend('alpha mean', 'alpha SEM', 'gamma mean', 'gamma SEM');
+% xlabel('Trial number')
+% ylabel('Values')
+% set(gca, 'LineWidth', 1.2)
+% box on
+% 
+% 
+% figure;
+% hold on;
+% plot(means(:,3),'b-');
+% plotMeanStd([1:1:num_trials],means(:,3)',stdevs(:,3)',stdevs(:,3)',[0.7 0.7 0.9],0);
+% legend('beta mean', 'beta SEM');
+% xlabel('Trial number')
+% ylabel('Values')
+% set(gca, 'LineWidth', 1.2)
+% box on
 
 end
 
