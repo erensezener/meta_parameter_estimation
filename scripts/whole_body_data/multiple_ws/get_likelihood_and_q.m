@@ -17,6 +17,9 @@ for i = 1:size(as,1)-1
     normalized_p_as = unnormalized_p_as / sum(unnormalized_p_as);
     
     %% Calculate the contribution to the NLL
+    if isnan(log(normalized_p_as(as(i,1))))
+        display('nan')
+    end
     negative_log_likelihood = negative_log_likelihood - log(normalized_p_as(as(i,1)));
 
     %% Update the Q function

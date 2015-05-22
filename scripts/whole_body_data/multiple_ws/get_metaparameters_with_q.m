@@ -4,10 +4,10 @@ function [ alpha, beta, gamma, Q, weights] = get_metaparameters_with_q(as, ss, i
 
 gamma_range = [0.1, 0.99];
 alpha_range = [0.1, 0.99];
-beta_range = [-3, 7];
-weight_range = [-3, 3];
+beta_range = [-3, 3];
+weight_range = [0.1, 0.99];
 step_size = 0.05;
-number_of_iterations = 10000;
+number_of_iterations = 8000;
 
 % get range lengths
 alpha_range_length = (alpha_range(2) - alpha_range(1));
@@ -25,9 +25,12 @@ beta = beta_range_length * rand(1) + beta_range(1);
 gamma = gamma_range_length * rand(1) + gamma_range(1);
 weights = weight_range_length * rand(1) + weight_range(1);
 
-rs = get_rewards(action_data, state_data, max_states, min_states, max_actions, min_actions, exp(weights));
+rs = get_rewards(action_data, state_data, max_states, min_states, max_actions, min_actions, weights);
 
 [likelihood, Q] = get_likelihood_and_q(as, rs, ss, alpha, exp(beta), gamma, initial_Q);
+if isnan(likelihood)
+    display('nan');
+end
 
 for i = 1:number_of_iterations
     
@@ -36,7 +39,7 @@ for i = 1:number_of_iterations
     beta_prime = 2 * beta_range_length * step_size * (rand(1) - 0.5) + beta;
     gamma_prime = 2 * gamma_range_length * step_size * (rand(1) - 0.5) + gamma;
     weight_prime = 2 * weight_range_length * step_size * (rand(1) - 0.5) + weights;
-     
+    
     primes = [alpha_prime, beta_prime, gamma_prime, weight_prime];
     
     loop_count = 0;
@@ -48,15 +51,19 @@ for i = 1:number_of_iterations
         weight_prime = 2 * weight_range_length * step_size * (rand(1) - 0.5) + weights;
         
         primes = [alpha_prime, beta_prime, gamma_prime, weight_prime];
-        if loop_count > 300
+        if loop_count > 500
             display('oops');
             return
         end
     end
     
     %% Accept or Reject
-    rs = get_rewards(action_data, state_data, max_states, min_states, max_actions, min_actions, exp(weights));
+    rs = get_rewards(action_data, state_data, max_states, min_states, max_actions, min_actions, weights);
     [likelihood_prime, Q_prime] = get_likelihood_and_q(as, rs, ss, primes(1), exp(primes(2)),primes(3), initial_Q);
+    if isnan(likelihood_prime)
+        display('nan');
+    end
+    
     if likelihood_prime < likelihood || rand(1) < exp(likelihood - likelihood_prime)
         alpha = alpha_prime;
         beta = beta_prime;

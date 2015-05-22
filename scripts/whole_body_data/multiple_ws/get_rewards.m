@@ -18,16 +18,16 @@ diff_CoMs = abs(CoMs - mean_CoM);
 % cost_function = @(emg_value, CoM, delta_CoM) - w(1) * emg_values(:,1) - w(2) * emg_values(:,2) ...
 %     - w(3) * (mean_CoM - CoM) ^ 2 - w(4) * sign((CoM - mean_CoM)) * delta_CoM;
 
-cost_function = @(emg_value) - emg_value(:,1) - weight * emg_value(:,2);
+cost_function = @(emg_value, CoM) - weight * norm(emg_value)^2 - (1-weight) * (mean_CoM - CoM) ^ 2;
 %     - weight(3) * diff_CoM;
 
 rewards = zeros(len,1);
 
 
 for i = 1:len
-    rewards(i) = cost_function(emg_values(i,:));
+    rewards(i) = cost_function(emg_values(i,:), CoMs(i,:));
 end
 
-rewards = - cost_function([1,1]) + rewards;
+rewards = 2 + rewards;
 end
 
