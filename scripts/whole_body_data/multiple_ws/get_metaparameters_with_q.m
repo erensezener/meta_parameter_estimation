@@ -1,5 +1,5 @@
-function [ alpha, beta, gamma, Q, weights] = get_metaparameters_with_q(as, ss, initial_Q, state_data, ...
-    action_data, max_states, min_states, max_actions, min_actions)
+function [ alpha, beta, gamma, Q, weights] = get_metaparameters_with_q(as, ss, initial_Q, inital_metaparameters, ...
+    initial_weights, state_data, action_data, max_states, min_states, max_actions, min_actions)
 %Does MCMC simulation to find the most likely metaparameters
 
 gamma_range = [0.1, 0.99];
@@ -20,10 +20,21 @@ lower_bounds = [alpha_range(1), beta_range(1), gamma_range(1), weight_range(1)];
 upper_bounds = [alpha_range(2), beta_range(2), gamma_range(2), weight_range(2)];
 
 % get initial values
-alpha = alpha_range_length * rand(1) + alpha_range(1);
-beta = beta_range_length * rand(1) + beta_range(1);
-gamma = gamma_range_length * rand(1) + gamma_range(1);
-weights = weight_range_length * rand(1) + weight_range(1);
+if nnz(inital_metaparameters) == 0 %all are zeros
+    alpha = alpha_range_length * rand(1) + alpha_range(1);
+    beta = beta_range_length * rand(1) + beta_range(1);
+    gamma = gamma_range_length * rand(1) + gamma_range(1);
+else 
+    alpha = inital_metaparameters(1);
+    beta = inital_metaparameters(2);
+    gamma = inital_metaparameters(3);
+end
+
+if nnz(initial_weights) == 0 %all are zeros
+    weights = weight_range_length * rand(1) + weight_range(1);
+else
+    weights = initial_weights;
+end
 
 rs = get_rewards(action_data, state_data, max_states, min_states, max_actions, min_actions, weights);
 

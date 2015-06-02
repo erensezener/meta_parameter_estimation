@@ -5,6 +5,7 @@ function [ results ] = get_metaparameters_of_subject( sub_no )
 load(strcat('./whole_body_data/','s', num2str(sub_no), 'mvc.mat'));
 
 number_of_trials = 15;
+weight_length = 1;
 
 downsampling_rate = 50;
 smoothing_rate = 51;
@@ -63,9 +64,9 @@ for i = 1:number_of_trials
         number_of_estimated_states = max(all_discrete_states) + 1;
         number_of_estimated_actions = max(all_discrete_actions) + 1;
         q_prev = zeros(number_of_estimated_states, number_of_estimated_actions);
+        metaparameters_prev = [0, 0, 0];
+        weights_prev = zeros(1, weight_length);
         
-        [ alpha, beta, gamma, q_final, weights] = get_metaparameters_with_q(actions, states, q_prev, state_data, ...
-            action_data, max_states, min_states, max_actions, min_actions);
         
     else
         begin_index = sum(lengths(1:i-1)) + 1;
@@ -74,15 +75,18 @@ for i = 1:number_of_trials
         states = all_discrete_states(begin_index:end_index,:);
         actions = all_discrete_actions(begin_index:end_index,:);
         state_data = all_state_data(begin_index:end_index,:);
-        action_data = all_action_data(begin_index:end_index,:);
+        action_data = all_action_data(begin_index:end_index,:);        
         
-        [ alpha, beta, gamma, q_final, weights] = get_metaparameters_with_q(actions, states, q_prev, state_data, ...
-            action_data, max_states, min_states, max_actions, min_actions);
-
     end
+    
+    [ alpha, beta, gamma, q_final, weights] = get_metaparameters_with_q(actions, states, q_prev, ...
+        metaparameters_prev, weights_prev, state_data, action_data, max_states, min_states, max_actions, min_actions);
+    
     
     results{i,1} =  [alpha, beta, gamma, weights];
     q_prev = q_final;
+    weights_prev = weights;
+    metaparameters_prev = [alpha, beta, gamma];
     qs{i,1} = q_prev;
 end
 end
