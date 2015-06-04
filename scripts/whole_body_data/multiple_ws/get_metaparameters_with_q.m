@@ -1,4 +1,4 @@
-function [ alpha, beta, gamma, Q, weights] = get_metaparameters_with_q(as, ss, initial_Q, inital_metaparameters, ...
+function [ alpha, beta, gamma, Q, weights] = get_metaparameters_with_q(trial_no, as, ss, initial_Q, inital_metaparameters, ...
     initial_weights, state_data, action_data, max_states, min_states, max_actions, min_actions)
 %Does MCMC simulation to find the most likely metaparameters
 
@@ -6,8 +6,14 @@ gamma_range = [0.1, 0.99];
 alpha_range = [0.1, 0.99];
 beta_range = [-3, 1.5];
 weight_range = [0.1, 0.99];
-step_size = 0.02;
-number_of_iterations = 10000;
+
+if trial_no == 1
+    number_of_iterations = 50000;
+    step_size = 0.05;
+else
+    number_of_iterations = 3000;
+    step_size = 0.01;
+end
 
 % get range lengths
 alpha_range_length = (alpha_range(2) - alpha_range(1));
@@ -24,7 +30,7 @@ if nnz(inital_metaparameters) == 0 %all are zeros
     alpha = alpha_range_length * rand(1) + alpha_range(1);
     beta = beta_range_length * rand(1) + beta_range(1);
     gamma = gamma_range_length * rand(1) + gamma_range(1);
-else 
+else
     alpha = inital_metaparameters(1);
     beta = inital_metaparameters(2);
     gamma = inital_metaparameters(3);

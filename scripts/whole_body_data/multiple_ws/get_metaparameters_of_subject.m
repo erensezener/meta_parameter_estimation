@@ -79,7 +79,7 @@ for i = 1:number_of_trials
         
     end
     
-    [ alpha, beta, gamma, q_final, weights] = get_metaparameters_with_q(actions, states, q_prev, ...
+    [ alpha, beta, gamma, q_final, weights] = get_metaparameters_with_q(trial_no, actions, states, q_prev, ...
         metaparameters_prev, weights_prev, state_data, action_data, max_states, min_states, max_actions, min_actions);
     
     

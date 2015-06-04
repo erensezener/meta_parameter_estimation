@@ -4,7 +4,7 @@ function [ means,  stdevs] = plot_trial_averages( results )
 
 set(0,'DefaultFigureRenderer','opengl');
 
-num_subjects = 6;
+num_subjects = 12;
 num_trials = 15;
 num_variables = size(results{2,2},2);
 
