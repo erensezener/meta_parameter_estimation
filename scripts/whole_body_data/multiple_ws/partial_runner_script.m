@@ -24,6 +24,6 @@ parfor (sub_no = 2:number_of_subjects, 6)
     %     end
 end
 
-save('./results/whole_body/transferred_w_long_adaptive.mat');
+save('./results/whole_body/transferred_w_long_adaptive2.mat');
 
 toc

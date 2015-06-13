@@ -9,9 +9,9 @@ weight_range = [0.1, 0.99];
 
 if trial_no == 1
     number_of_iterations = 50000;
-    step_size = 0.05;
+    step_size = 0.01;
 else
-    number_of_iterations = 3000;
+    number_of_iterations = 10000;
     step_size = 0.01;
 end
 
