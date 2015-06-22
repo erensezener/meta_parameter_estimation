@@ -1,4 +1,4 @@
-function [ results ] = get_metaparameters_of_subject( sub_no )
+function [ results, histories ] = get_metaparameters_of_subject( sub_no )
 %DISCRETIZE_ALL_TRIALS Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -53,6 +53,8 @@ max_actions = max(all_action_data);
 min_actions = min(all_action_data);
 
 results = cell(number_of_trials,1);
+histories = cell(number_of_trials,1);
+
 qs = cell(number_of_trials,1);
 for i = 1:number_of_trials
     if i == 1
@@ -67,7 +69,6 @@ for i = 1:number_of_trials
         metaparameters_prev = [0, 0, 0];
         weights_prev = zeros(1, weight_length);
         
-        
     else
         begin_index = sum(lengths(1:i-1)) + 1;
         end_index = begin_index + lengths(i) - 1;
@@ -79,11 +80,12 @@ for i = 1:number_of_trials
         
     end
     
-    [ alpha, beta, gamma, q_final, weights] = get_metaparameters_with_q(1, actions, states, q_prev, ...
+    [ alpha, beta, gamma, q_final, weights, history] = get_metaparameters_with_q(1, actions, states, q_prev, ...
         metaparameters_prev, weights_prev, state_data, action_data, max_states, min_states, max_actions, min_actions);
     
     
     results{i,1} =  [alpha, beta, gamma, weights];
+    histories{i,1} = history;
     q_prev = q_final;
     weights_prev = weights;
     metaparameters_prev = [alpha, beta, gamma];
