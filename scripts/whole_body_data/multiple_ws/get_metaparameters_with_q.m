@@ -9,10 +9,10 @@ weight_range = [0.1, 0.99];
 
 if trial_no == 1
     number_of_iterations = 30000;
-    step_size = 0.05;
+    step_size = 0.1;
 else
     number_of_iterations = 5000;
-    step_size = 0.05;
+    step_size = 0.1;
 end
 
 history = zeros(number_of_iterations, 4);
@@ -53,7 +53,6 @@ end
 
 for i = 1:number_of_iterations
     
-    while 1 % sample until finding a good update
         %% Sampling
         alpha_prime = 2 * alpha_range_length * step_size * (rand(1) - 0.5) + alpha;
         beta_prime = 2 * beta_range_length * step_size * (rand(1) - 0.5) + beta;
@@ -91,10 +90,8 @@ for i = 1:number_of_iterations
             likelihood = likelihood_prime;
             weights = weight_prime;
             Q = Q_prime;
-            break;
         end
         
-    end
     history(i,:) = [alpha, beta, gamma, weights];
 end
 
