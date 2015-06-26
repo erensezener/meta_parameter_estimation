@@ -15,7 +15,7 @@ results = cell(number_of_subjects, number_of_trials);
 histories = cell(number_of_subjects, number_of_trials);
 
 % for sub_no = 2:number_of_subjects
-parfor (sub_no = 7:number_of_subjects, 6)
+parfor (sub_no = 8:number_of_subjects, 6)
     %     try
     
     [result, history] = get_metaparameters_of_subject(sub_no);

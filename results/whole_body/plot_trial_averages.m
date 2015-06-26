@@ -1,12 +1,12 @@
-function [ means,  stdevs] = plot_trial_averages( results )
+function [ means,  stdevs] = plot_trial_averages(histories )
 %PLOT_TRIAL_AVERAGES Summary of this function goes here
 %   Detailed explanation goes here
 
 set(0,'DefaultFigureRenderer','opengl');
 
-num_subjects = 12;
+num_subjects = 7;
 num_trials = 15;
-num_variables = size(results{2,2},2);
+num_variables = size(histories{2,2},2);
 
 means = zeros(num_trials,num_variables);
 stdevs = zeros(num_trials,num_variables);
@@ -14,26 +14,32 @@ stdevs = zeros(num_trials,num_variables);
 for i = 1:num_trials
     temp = zeros(num_subjects,num_variables);
     for j = 1:num_subjects
-        temp(j,:) = results{j,i};
+        temp(j,:) = mean(histories{j,i});
         if exp(temp(j,2)) > 1.5 && i > 3
             j
         end
     end
-    means(i,:) = mean(temp(:,4));
-    stdevs(i,:) = std(temp(:,4)) / sqrt(num_subjects);
+    means(i,:) = mean(temp);
+    stdevs(i,:) = std(temp) / sqrt(num_subjects);
     
 end
 
 figure;
 hold on;
-plot(means(:,1),'b-');
-plotMeanStd([1:1:num_trials],means(:,1)',stdevs(:,1)',stdevs(:,1)',[0.7 0.7 0.9],0);
-% % figure;
+
+plot(means(:,1),'r-');
+plotMeanStd([1:1:num_trials],means(:,1)',stdevs(:,1)',stdevs(:,1)',[0.9 0.3 0.3],0);
+
 % plot(means(:,2),'r:');
 % plotMeanStd([1:1:num_trials],means(:,2)',stdevs(:,2)',stdevs(:,2)',[0.9 0.7 0.7],0);
-% plot(means(:,3),'g--');
-% plotMeanStd([1:1:num_trials],means(:,3)',stdevs(:,3)',stdevs(:,3)',[0.5, 0.9 0.5],0);
-% legend('alpha mean', 'alpha SEM', 'gamma mean', 'gamma SEM', 'beta mean', 'beta SEM');
+plot(means(:,3),'g--');
+plotMeanStd([1:1:num_trials],means(:,3)',stdevs(:,3)',stdevs(:,3)',[0.5, 0.9 0.5],0);
+plot(means(:,4),'b-');
+plotMeanStd([1:1:num_trials],means(:,4)',stdevs(:,4)',stdevs(:,4)',[0.7 0.7 0.9],0);
+legend('alpha mean', 'alpha SEM', 'gamma mean', 'gamma SEM', 'w mean', 'w SEM');
+% legend('alpha mean', 'alpha SEM', 'gamma mean', 'gamma SEM', 'beta mean', 'beta SEM', 'w mean', 'w SEM');
+
+
 xlim([1, 15])
 xlabel('Trial number')
 ylabel('Values')

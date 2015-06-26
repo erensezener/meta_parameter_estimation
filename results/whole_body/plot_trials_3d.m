@@ -5,7 +5,7 @@ function [] = plot_trials_3d( i, results )
 averages = zeros(15,4);
 
 for j = 1:15
-    averages(j,:) = results{i,j};
+    averages(j,:) = mean(results{i,j});
 end
 
 
