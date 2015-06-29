@@ -8,12 +8,12 @@ beta_range = [-3, 1.5];
 weight_range = [0.1, 0.99];
 
 if trial_no == 1
-    number_of_iterations = 50000;
-    prior_fun = @(metaparameters, weights) 1;
+    number_of_iterations = 30000;
+    prior = @(metaparameters, weights) 1;
     step_size = 0.1;
 else
-    number_of_iterations = 10000;
-    prior_fun = @(metaparameters, weights) - log(normpdf(metaparameters, initial_metaparameters, 0.1*ones(1,3))) ...
+    number_of_iterations = 8000;
+    prior = @(metaparameters, weights) - log(normpdf(metaparameters, initial_metaparameters, 0.1*ones(1,3))) ...
         - log(normpdf(weights, initial_weights, 0.1));
     step_size = 0.1;
 end

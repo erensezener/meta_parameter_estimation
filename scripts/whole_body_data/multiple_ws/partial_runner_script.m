@@ -31,6 +31,6 @@ parfor (sub_no = 8:number_of_subjects, 6)
     %     end
 end
 
-save('./results/whole_body/with_histories.mat');
+save('./results/whole_body/with_histories_transfer_prior.mat');
 
 toc
