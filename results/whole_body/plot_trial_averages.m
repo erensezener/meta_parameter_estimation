@@ -4,7 +4,7 @@ function [ means,  stdevs] = plot_trial_averages(histories )
 
 set(0,'DefaultFigureRenderer','opengl');
 
-num_subjects = 7;
+num_subjects = 6;
 num_trials = 15;
 num_variables = size(histories{2,2},2);
 
@@ -39,13 +39,26 @@ plotMeanStd([1:1:num_trials],means(:,4)',stdevs(:,4)',stdevs(:,4)',[0.7 0.7 0.9]
 legend('alpha mean', 'alpha SEM', 'gamma mean', 'gamma SEM', 'w mean', 'w SEM');
 % legend('alpha mean', 'alpha SEM', 'gamma mean', 'gamma SEM', 'beta mean', 'beta SEM', 'w mean', 'w SEM');
 
-
 xlim([1, 15])
 xlabel('Trial number')
 ylabel('Values')
 set(gca, 'LineWidth', 1.2)
 box on
 
+
+figure;
+hold on;
+
+plot(means(:,2),'r-');
+plotMeanStd([1:1:num_trials],means(:,2)',stdevs(:,2)',stdevs(:,2)',[0.9 0.3 0.3],0);
+
+legend('beta exponent mean', 'beta exponent SEM');
+
+xlim([1, 15])
+xlabel('Trial number')
+ylabel('Values')
+set(gca, 'LineWidth', 1.2)
+box on
 
 % figure;
 % hold on;
