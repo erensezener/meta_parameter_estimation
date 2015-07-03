@@ -37,7 +37,7 @@ action_data = [action_data(:,1)/MVC_noga(6), action_data(:,2)/MVC_noga(7)];
 action_data = [downsample(smooth(action_data(:,1)/MVC_noga(6),smoothing_rate), downsampling_rate), ...
     downsample(smooth(action_data(:,2)/MVC_noga(7),smoothing_rate), downsampling_rate)];
 action_data = action_data(1:end-1,:);
-
+clear all_data;
 
 number_of_states = 9; %per state dimension
 number_of_actions = 5; %per state dimension

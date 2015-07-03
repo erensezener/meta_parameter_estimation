@@ -6,7 +6,7 @@ get_likelihood_outer = @(w) -1 * get_likelihood_and_q(as, ...
     get_rewards(action_data, state_data, max_states, min_states, max_actions, min_actions, [w(4),w(5)]), ...
     ss, w(1), exp(w(2)), w(3), initial_Q);
 
-history = slicesample([0.5, 0.1, 0.5, 0.2, 0.2]',10000,'logpdf',get_likelihood_outer);
+history = slicesample([0.5, 0.1, 0.5, 0.2, 0.2]',1000,'logpdf',get_likelihood_outer);
 
 
 end
