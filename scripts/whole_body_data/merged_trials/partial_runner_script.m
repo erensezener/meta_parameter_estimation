@@ -13,8 +13,8 @@ number_of_subjects = 13;
 results = cell(number_of_subjects, 1);
 histories = cell(number_of_subjects, 1);
 
-% parfor sub_no = 13:number_of_subjects
-parfor (sub_no = 8:number_of_subjects, 6)
+% for sub_no = 13:number_of_subjects
+parfor (sub_no = 2:number_of_subjects, 6)
     %     try
     
     [result, history] = get_metaparameters_of_subject(sub_no);
@@ -30,6 +30,6 @@ parfor (sub_no = 8:number_of_subjects, 6)
     %     end
 end
 
-save('./results/whole_body/merged_trials_1.mat');
+save('./results/whole_body/merged_trials_3.mat');
 
 toc
