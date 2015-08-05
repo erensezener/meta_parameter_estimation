@@ -12,7 +12,7 @@ number_of_subjects = 13;
 
 histories = cell(number_of_subjects, 1);
 
-% parfor sub_no = 13:number_of_subjects
+% for sub_no = 13:number_of_subjects
 parfor (sub_no = 2:number_of_subjects, 6)
     %     try
     

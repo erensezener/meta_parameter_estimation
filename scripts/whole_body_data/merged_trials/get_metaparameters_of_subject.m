@@ -53,7 +53,8 @@ number_of_estimated_states = max(states) + 1;
 number_of_estimated_actions = max(actions) + 1;
 initial_q = zeros(number_of_estimated_states, number_of_estimated_actions);
 
-display('itering');
+clear CoM; clear data; clear all_data; clear delta_CoM; clear F; clear temp_CoM;
+
 [ alpha, beta, gamma, a, b, history] = get_metaparameters_with_q(actions, states, initial_q, ...
     state_data, action_data, max_states, min_states, max_actions, min_actions);
 
