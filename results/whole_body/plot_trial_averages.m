@@ -14,7 +14,8 @@ stdevs = zeros(num_trials,num_variables);
 for i = 1:num_trials
     temp = zeros(num_subjects,num_variables);
     for j = 1:num_subjects
-        temp(j,:) = mean(histories{j,i});
+        t = histories{j,i};
+        temp(j,:) = mean(t(end/5:end));
         if exp(temp(j,2)) > 1.5 && i > 3
             j
         end
