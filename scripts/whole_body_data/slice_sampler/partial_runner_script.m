@@ -28,6 +28,6 @@ parfor (sub_no = 2:number_of_subjects, 6)
     %     end
 end
 
-save('./results/whole_body/slice_sampler_with_constraints.mat');
+save('./results/whole_body/slice_sampler_with_constraints_longer.mat');
 
 toc
