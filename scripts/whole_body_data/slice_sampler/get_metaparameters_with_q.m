@@ -11,7 +11,7 @@ function [history] = get_metaparameters_with_q(as, ss, initial_Q, ...
 get_likelihood_outer_wrapped = @(w) get_likelihood_outer_with_constraints( w, as, ss, initial_Q, ...
     state_data, action_data, max_states, min_states, max_actions, min_actions );
 
-history = slicesample([0.5, 0.1, 0.5, 0, 0.5]', 5000,'logpdf',get_likelihood_outer_wrapped, 'width', 0.8 * ones(1,5));
+history = slicesample([0.2, -0.1, 0.7, 0, 0.5]', 12000,'logpdf',get_likelihood_outer_wrapped, 'width', 0.8 * ones(1,5));
 
 
 end

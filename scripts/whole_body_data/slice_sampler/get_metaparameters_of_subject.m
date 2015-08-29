@@ -19,6 +19,7 @@ for i = 1:number_of_trials
     all_data(last_free_index:last_free_index + data_length-1, :) = data;
     last_free_index = last_free_index + data_length;
 end
+clear data;
 
 CoM = all_data(:,3);
 
@@ -27,17 +28,20 @@ temp_CoM = CoM(CoM < 5000);
 CoM(CoM > 5000) = max(temp_CoM);
 temp_CoM = CoM(CoM > -5000);
 CoM(CoM < -5000) = min(temp_CoM);
+clear temp_CoM;
 
 CoM = downsample(smooth(CoM,smoothing_rate), downsampling_rate);
 delta_CoM = diff(CoM); %this is 1 row shorter than CoM data
 F = downsample(smooth(all_data(:,2),smoothing_rate), downsampling_rate);
 state_data = [CoM(1:end-1,:), delta_CoM, F(1:end-1,:)];
+clear delta_CoM; clear F;
 action_data = all_data(1:end,[end-1, end]); %emg data in this case
+clear all_data;
 action_data = [action_data(:,1)/MVC_noga(6), action_data(:,2)/MVC_noga(7)];
 action_data = [downsample(smooth(action_data(:,1)/MVC_noga(6),smoothing_rate), downsampling_rate), ...
     downsample(smooth(action_data(:,2)/MVC_noga(7),smoothing_rate), downsampling_rate)];
 action_data = action_data(1:end-1,:);
-clear all_data;
+clear CoM;
 
 number_of_states = 9; %per state dimension
 number_of_actions = 5; %per state dimension
