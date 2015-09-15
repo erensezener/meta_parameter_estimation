@@ -17,10 +17,11 @@ histories = cell(number_of_subjects, 1);
 
 
 % for sub_no = 13:number_of_subjects
-parfor (sub_no = subjects, 6)
-
+parfor (i = 1:number_of_subjects, 6)
+    
+    sub_no = subjects(i);
     [history] = get_metaparameters_of_subject(sub_no);
-    histories{sub_no,1} = history;
+    histories{i,1} = history;
     
     display(num2str(sub_no));
 end

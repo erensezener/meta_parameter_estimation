@@ -6,8 +6,8 @@ load(strcat('./whole_body_data/','s', num2str(sub_no), 'mvc.mat'));
 
 number_of_trials = 15;
 
-downsampling_rate = 50;
-smoothing_rate = 51;
+downsampling_rate = 200;
+smoothing_rate = 201;
 
 data = selection_lean(sub_no,1); %to learn the size
 all_data = zeros(size(data,1)*number_of_trials, size(data,2));
