@@ -12,7 +12,7 @@ get_likelihood_outer_wrapped = @(w) get_likelihood_outer_with_constraints( w, as
     state_data, action_data, max_states, min_states, max_actions, min_actions );
 
 width = 4 * [1, 1, 1, 1, 1];
-history = slicesample([0.2, -0.1, 0.57, 0.01, 0.5]', 12000,'logpdf',get_likelihood_outer_wrapped, 'width', width);
+history = slicesample([0.2, -0.1, 0.57, 0.01, 0.5]', 25000,'logpdf',get_likelihood_outer_wrapped, 'width', width);
 
 
 end
