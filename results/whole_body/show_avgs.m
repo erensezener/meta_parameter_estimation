@@ -1,6 +1,6 @@
 function [ avgs ] = show_avgs(  results )
 
-length = 6;
+length = size(results,1);
 
 avgs = zeros(length, size(results{2,1},2));
 
